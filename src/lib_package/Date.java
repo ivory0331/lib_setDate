@@ -16,7 +16,7 @@ public class Date {
     private int day;
     private DayOfWeek dayOfWeek;
 
-
+    // 2024, 07, 01 날짜 버전
     public Date(int year, int month, int day)
     {
         this.year = year;
@@ -25,6 +25,7 @@ public class Date {
         this.dayOfWeek = LocalDate.of(year, month, day).getDayOfWeek();
     }
 
+    // 20240701 날짜 버전
     public Date(String date)
     {
         LocalDate localDate = LocalDate.of(Integer.parseInt(date.substring(0,4)),
@@ -35,7 +36,7 @@ public class Date {
         this.dayOfWeek = localDate.getDayOfWeek();
     }
 
-    //오늘 날짜 생성
+    // 오늘 날짜 생성
     public static Date today()
     {
         LocalDate localDate = LocalDate.now();
@@ -43,7 +44,7 @@ public class Date {
                 localDate.getDayOfMonth());
     }
 
-    //어제 날짜 생성
+    // 어제 날짜 생성
     public static Date yesterday()
     {
         LocalDate yesterday = LocalDate.now().minusDays(1);
@@ -51,11 +52,84 @@ public class Date {
                 yesterday.getDayOfMonth());
     }
 
-    //내일 날짜 생성
+    // 내일 날짜 생성
     public static Date tomorrow()
     {
         LocalDate tomorrow = LocalDate.now().plusDays(1);
         return new Date(tomorrow.getYear(), tomorrow.getMonth().getValue(),
                 tomorrow.getDayOfMonth());
     }
+
+    // 오늘 날짜기준으로 매개변수로 입력한 날짜만큼 이전 날짜 생성
+    public static Date previousDate(int days)
+    {
+        LocalDate previousDate = LocalDate.now().minusDays(days);
+        return new Date(previousDate.getYear(), previousDate.getMonth().getValue(),
+                previousDate.getDayOfMonth());
+    }
+
+    // 매개변수로 입력받은 Date를 매개변수로 입력한 날짜만큼 이전 날짜 생성
+    public static Date previousDate(Date date, int days)
+    {
+        LocalDate previousDate = LocalDate.of(date.year,
+                date.month.getValue(), date.day).minusDays(days);
+        return new Date(previousDate.getYear(), previousDate.getMonth().getValue(),
+                previousDate.getDayOfMonth());
+    }
+
+    // 오늘 날짜기준으로 매개변수로 입력한 날짜만큼 이후 날짜 생성
+    public static Date nextDate(int days)
+    {
+        LocalDate nextDate = LocalDate.now().plusDays(days);
+        return new Date(nextDate.getYear(), nextDate.getMonth().getValue(),
+                nextDate.getDayOfMonth());
+    }
+
+    // 매개변수로 입력받은 Date를 매개변수로 입력한 날짜만큼 이후 날짜 생성
+    public static Date nextDate(Date date, int days)
+    {
+        LocalDate nextDate = LocalDate.of(date.year,
+                date.month.getValue(), date.day).plusDays(days);
+        return new Date(nextDate.getYear(), nextDate.getMonth().getValue(),
+                nextDate.getDayOfMonth());
+    }
+
+    // 날짜 비교 (어떤것이 더 큰지)
+    public boolean isGreaterThan(Date other)
+    {
+        boolean ret = false;
+        if (this.year > other.year)
+        {
+            ret = true;
+        }
+        else if (this.year == other.year && this.month.compareTo(other.month) > 0)
+        {
+            ret = true;
+        }
+        else if (this.year == other.year && this.month == other.month && this.day > other.day)
+        {
+            ret = true;
+        }
+        return ret;
+    }
+
+    // 날짜 비교 (어떤것이 더 작은지)
+    public boolean isLowerThan(Date other)
+    {
+        boolean ret = false;
+        if (this.year < other.year)
+        {
+            ret = true;
+        }
+        else if (this.year == other.year && this.month.compareTo(other.month) < 0)
+        {
+            ret = true;
+        }
+        else if (this.year == other.year && this.month == other.month && this.day < other.day)
+        {
+            ret = true;
+        }
+        return ret;
+    }
+
 }
