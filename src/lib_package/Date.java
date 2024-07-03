@@ -132,4 +132,56 @@ public class Date {
         return ret;
     }
 
+    // 오버라이딩
+    // obj를 Date로 바꾸고 비교
+    @Override
+    public boolean equals(Object obj)
+    {
+        boolean ret = false;
+        if (obj instanceof Date)
+        {
+            if (this.year == ((Date)obj).year && this.month == ((Date)obj).month
+                    && this.day == ((Date)obj).day)
+            {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    // 출력용
+    @Override
+    public String toString()
+    {
+        // 자료형 -> 정수형
+        int month = this.month.getValue();
+
+        String stringMonth;
+
+        // month가 한 자리수인 경우 앞에 0 붙이기
+        if (month < 10)
+        {
+            stringMonth = new String("0" + month);
+        }
+        else
+        {
+            stringMonth = Integer.toString(month);
+        }
+
+        String stringDay;
+
+        // Day가 한 자리수인 경우 앞에 0 붙이기
+        if (this.day < 10)
+        {
+            stringDay = new String("0" + this.day);
+        }
+        else
+        {
+            stringDay = Integer.toString(this.day);
+        }
+
+        return new String(this.year + "-" + stringMonth + "-" + stringDay + "-" + this.dayOfWeek);
+    }
+
+
 }
