@@ -1,10 +1,10 @@
 package lib_package;
 
 import java.time.Month;
-import  java.time.DayOfWeek;
+import java.time.DayOfWeek;
 import java.time.LocalDate;
 
-public class Date {
+public class Date implements Cloneable {
 
     /**
      * https://injae7034.github.io/java/nineteenth/
@@ -182,6 +182,19 @@ public class Date {
 
         return new String(this.year + "-" + stringMonth + "-" + stringDay + "-" + this.dayOfWeek);
     }
+
+    //clone
+    @Override
+    public Date clone() throws CloneNotSupportedException
+    {
+        return (Date)super.clone();
+    }
+
+    //getter
+    public int getYear() {return this.year;}
+    public Month getMonth() {return this.month;}
+    public int getDay() {return this.day;}
+    public DayOfWeek getDayOfWeek() {return this.dayOfWeek;}
 
 
 }
